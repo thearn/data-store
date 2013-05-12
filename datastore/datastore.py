@@ -60,7 +60,7 @@ class mstore(dbStore):
 
     def get(self, name):
         record = self.db.find_one({"name": name})['value']
-        if name in self.nd.keys():
+        if isinstance(record, Binary):
             record = bson2np(record)
         return record
 
@@ -80,4 +80,5 @@ if __name__ == "__main__":
     x.set("pi", np.random.randn(14, 1000))
 
     val = x.get("pi")
+    print val
     print time.time() - t
